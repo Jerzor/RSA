@@ -13,8 +13,7 @@ from pyparsing import nums
 from scipy.stats import entropy
 
 from scipy import stats as stats
-from Cryptodome.PublicKey import RSA  
-# from Cryptodome.Random import get_random_bytes
+from Cryptodome.PublicKey import RSA
 from Cryptodome.Cipher import PKCS1_OAEP
 
 
@@ -164,21 +163,10 @@ if __name__ == '__main__':
 
         nums_8bit = split_bit_string_to_n_bit_nums(8, random_bits_string)
 
-        # with open(of_path, 'w') as f:
-        #     for num in nums_8bit:
-        #         f.write(f'{num}\n')
-
 # =====================================================================================  
 # =====================================    RSA    =====================================
 # =====================================================================================   
 
-        # print(get_random_bytes(nums_8bit)(10))
-        
-        # with open('./__pycache__/test.txt', 'wb') as f:
-        #     np.save(f, nums_8bit)
-        
-        # with open('./__pycache__/test.txt', 'rb') as f:   
-        #     print(f.read(10))
         key = RSA.generate(1024,get_random_bytes(nums_8bit))
 
         public_key = key.publickey()
@@ -186,6 +174,7 @@ if __name__ == '__main__':
         # klucze
         public_key_to_show = int(str(public_key)[18:31], 16)
         private_key_to_show = int(str(key)[19:32], 16)
+
         print('\nKlucz publiczny: ', public_key_to_show)
         print('Klucz prywatny: ', private_key_to_show, "\n\n")
 
