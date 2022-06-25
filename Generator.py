@@ -14,6 +14,7 @@ from scipy.stats import entropy
 
 from scipy import stats as stats
 from Cryptodome.PublicKey import RSA  
+# from Cryptodome.Random import get_random_bytes
 from Cryptodome.Cipher import PKCS1_OAEP
 
 
@@ -43,6 +44,14 @@ def isTrueCode(message: string, code: string):
         return True
     return False
 
+def get_random_bytes(arr):
+    c = 0
+    def generate(n):
+        nonlocal c
+        b = bytes(arr[c:n+c])
+        c += n
+        return b
+    return generate
 
 class Camera:
     def __init__(self, src: int, frame_size: FrameSize, fps: int, no_frames_auto_settings: int) -> None:
@@ -163,11 +172,14 @@ if __name__ == '__main__':
 # =====================================    RSA    =====================================
 # =====================================================================================   
 
-        with open('./__pycache__/test.txt', 'wb') as f:
-            np.save(f, nums_8bit)
-
-        with open('./__pycache__/test.txt', 'rb') as f:   
-           key = RSA.generate(1024,f.read)
+        # print(get_random_bytes(nums_8bit)(10))
+        
+        # with open('./__pycache__/test.txt', 'wb') as f:
+        #     np.save(f, nums_8bit)
+        
+        # with open('./__pycache__/test.txt', 'rb') as f:   
+        #     print(f.read(10))
+        key = RSA.generate(1024,get_random_bytes(nums_8bit))
 
         public_key = key.publickey()
 
